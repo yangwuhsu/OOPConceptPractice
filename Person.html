@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 設定「人」這個類別用大寫
+        var Person = function (name,gender,obj) {
+            this.name = name;
+            this.gender = gender;
+            this.object = obj;
+            this.greeting = function(){
+                console.log("hello, I am " + this.name)
+            } 
+            this.hello = function(person){
+                console.log("hello " + person.name + ", I am "+ this.name + ".")
+            }
+            this.give = function(person){
+                console.log(this.name + "把" + this.object + "給" + person.name);
+                person.object = this.object;
+                this.object = null;
+            }           
+        }
+
+        // 實體化「人」
+        var person1 = new Person("John","male","apple");
+        var person2 = new Person("mary","female",null);
+        person1.hello(person2);
+        person1.give(person2);
+        
+
+    </script>
+</body>
+</html>
