@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        .person{
+            border: solid 4px black;
+            padding: 10px;
+        }
+        .person img{
+            width: 50px;
+        }
+        .person.worker{
+            border:solid 4px red;
+        }
+    </style>
+</head>
+<body>
+    
+
+    <script>
+        console.clear();
+
+        var Person = function(name,age){
+            this.name = name;
+            this.age = age;
+            
+        }
+        Person.prototype.getHtml = function(){
+            return  `<div class="person">
+                        <img src="img/person.svg"></img>
+                        <h3>Person:${this.name}</h3><br>
+                        Age:${this.age} years old</h3>
+                    </div>`
+        }
+        Person.prototype.sayHello = function(){
+            console.log("1. hello,"+ this.name)
+        }
+        var Mary = new Person("Mary",40);
+        Mary.sayHello();
+  
+
+        var Jay = new Person("Jay",36);
+        Person.prototype.sayHello = function(){
+            console.log("2. Hola ,"+ this.name);
+        }
+        //兩個的sayHello 變成 2
+        Mary.sayHello();
+        Jay.sayHello();
+
+        // 共用長出 html function
+        $('body').append(Mary.getHtml());
+        $('body').append(Jay.getHtml());      
+
+        // 繼承概念
+        var Worker = function(name,age,work){
+            //初始化Person屬性
+            Person.call(this,name,age);
+            //在 worker 裡面有的屬性
+            this.work = work
+        }
+        // 連結 Person 的 prototype
+        Worker.prototype = Object.create(Person.prototype);
+        // worker 的建構函式等於自己的建構函式，而不會一路往上找到 Person 的建構函式
+        Worker.prototype.constructor = Worker.constructor;
+        
+        //建構 worker 自己的 prototype 內容
+        Worker.prototype.sayWork = function(){
+            console.log(`Hello,my name is ${this.name}, my work is ${this.work}`);
+        }
+        //複寫原生tostring 方法
+        Worker.prototype.toString= function(){
+            return "[worker]"+ this.name;
+        }
+
+        var John = new Worker("John",22,"Artist");
+        Worker.prototype.getHtml = function(){
+            return  `<div class="person worker">
+                        <img src="https://www.iconexperience.com/_img/g_collection_png/standard/512x512/worker.png"></img>
+                        <h3>Person:${this.name}</h3><br>
+                        Age:${this.age} years old <br>
+                        Work:${this.work}
+                        </h3>
+                    </div>`
+        }
+        John.sayHello();
+        John.sayWork();
+        $('body').append(John.getHtml())
+        //原本會是[object object]
+        console.log("this is "+ John);
+
+
+       
+    </script>
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        // 教學文章來自 https://www.casper.tw/javascript/2017/12/18/javascript-constructor/
+        // 建構式
+        // 1.建構式使用大寫以利辨識
+        // 2. 只能使用function 不能使用箭頭函式 
+        function PhotoTemplate(brand,modal,withCamera){
+            this.brand = brand;
+            this.modal = modal;
+            this.withCamera = withCamera || false;
+            this.takePhoto = function(){
+                if(this.withCamera){
+                    console.log(this.modal + "照相");
+                }else{
+                    console.log(this.modal + "這台沒有照相功能");
+                }
+            }
+        }
+
+        var sonyPhone = new PhotoTemplate('Sony','z100',true);
+        var nokiaPhone = new PhotoTemplate('Nokia','3310',false);
+
+        // 加入prototype
+        PhotoTemplate.prototype.callSomeone = function(someone){
+            console.log("打電話給" + someone);
+        }
+
+        sonyPhone.callSomeone("ming");
+        nokiaPhone.callSomeone("ming");
+        console.log('sony',sonyPhone);
+        console.log('nokia',nokiaPhone);
+        console.log([].__proto__);
+
+
+    </script>
+</body>
+</html>
