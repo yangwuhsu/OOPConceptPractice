@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+//演示原型如何工作，但不建議使用這樣的方法
+String.prototype.yell = function(){ 
+    // refer to string ""
+    return `OMG!!! ${this.toUpperCase()}!!! AGHG!`
+}
+
+Array.prototype.pop = function(){
+    return "SORRY I WANT THAT ELEMENT , I WILL NEVER POP IT OFF!"
+}
+//["1","2","3"].pop()
+// -> SORRY I WANT THAT ELEMENT , I WILL NEVER POP IT OFF!
+//__prototy__ 是一個參考
+//要對物件操作是使用prototype
+
+    </script>
+</body>
+</html>

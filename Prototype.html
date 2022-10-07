@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+
+
+
+    <script>
+
+        function Person(name,age){
+            this.name = name;
+            this.age = age;
+        }
+
+
+        Person.prototype.log = function (){
+            console.log(this.name + ", age:" + this.age);
+        }
+
+        var nick = new Person('nick',32);
+
+        console.log('nick.__proto__ === Person.prototype',nick.__proto__ === Person.prototype);//true
+
+        console.log(Person.prototype.__proto__ === Object.prototype)//true
+
+        console.log(Object.prototype.__proto__);//null 原型練頂端
+
+        console.log(nick.hasOwnProperty('log')); // false
+
+        console.log(nick.__proto__.hasOwnProperty('log')); //true
+
+        console.log(Person.__proto__);
+        console.log('Person.__proto__ === Function.prototype',Person.__proto__ === Function.prototype);
+
+        function call(obj , methodName){
+            var realMethodOwner = obj;
+            console.log('realMethodOwner',realMethodOwner);
+            console.log('realMethodOwner.hasOwnProperty(methodName)',realMethodOwner.hasOwnProperty(methodName));
+            console.log('realMethodOwner.__proto__',realMethodOwner.__proto__);
+            
+            while( realMethodOwner && !realMethodOwner.hasOwnProperty(methodName)){
+                realMethodOwner = realMethodOwner.__proto__;
+            }
+
+            if(!realMethodOwner){
+                throw'method not found.';
+
+            }else{
+                realMethodOwner[methodName].apply(obj);
+            }
+        }
+
+        // call(nick,'log');
+        // call(nick,'not_exist');
+
+
+        
+
+
+
+
+    </script>
+</body>
+</html>

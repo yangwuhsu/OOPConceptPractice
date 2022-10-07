@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+
+        // 工廠模式函數
+        function makeColor(r,g,b){
+            const color = {};
+            color.r = r;
+            color.g = g;
+            color.b = b;
+            color.rgb = function(){
+                const {r,g,b} = this;
+                return  `rgb(${r},${g},${b})`;
+            };
+            color.hex = function(){
+                const {r,g,b} = this;
+                return "#" + ((1<<24) + (r<<16)+ (g<<8) +b ).toString(16).slice(1);
+            }
+            
+
+            return color;
+        }
+
+        const firstColor = makeColor(35,255,150);
+        firstColor.hex();
+        firstColor.rgb();
+
+        const black = makeColor(0,0,0);
+
+        console.log(black.hex === firstColor.hex);
+        // false
+        // 各自有自己的副本
+        console.log("hi".slice === "test".slice);
+        //true
+
+
+    </script>
+</body>
+</html>
